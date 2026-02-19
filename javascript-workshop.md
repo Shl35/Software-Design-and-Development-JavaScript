@@ -77,6 +77,63 @@ JavaScript สามารถเพิ่มลงในเว็บเพจไ
 ### บันทึกผลการทดลอง 
 ```html
 [บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ทดลอง JavaScript</title>
+</head>
+
+<body>
+
+    <h2>แบบฝึกปฏิบัติ JavaScript</h2>
+    <button onclick="alert('ชื่อ: ณภัทร รัศมี')">
+        ปุ่มที่ 1 (แสดงชื่อนักศึกษา)
+    </button>
+
+    <br><br>
+    <button id="btn2">
+        ปุ่มที่ 2 (แสดงวันที่ปัจจุบัน)
+    </button>
+
+    <br><br>
+    <button onclick="showTime()">
+        ปุ่มที่ 3 (แสดงเวลาปัจจุบัน)
+    </button>
+
+    <hr>
+
+    <h3>ทดลองรับค่าจาก Textbox</h3>
+
+    <input type="text" id="myText" placeholder="กรอกข้อความที่นี่">
+
+    <button onclick="showText()">
+        แสดงข้อความ
+    </button>
+
+    <p id="result"></p>
+
+    <script>
+        document.getElementById("btn2").onclick = function() {
+            let today = new Date();
+            alert("วันที่ปัจจุบันคือ: " + today.toLocaleDateString());
+        };
+
+        function showTime() {
+            let now = new Date();
+            alert("เวลาปัจจุบันคือ: " + now.toLocaleTimeString());
+        }
+
+        function showText() {
+            let text = document.getElementById("myText").value;
+            document.getElementById("result").innerHTML = "ข้อความที่คุณพิมพ์คือ: " + text;
+        }
+    </script>
+    <script src="script.js"></script>
+
+</body>
+</html>
+
 ```
 **รูปผลการทดลอง**
 ![รูปผลการทดลองที่ 1](images/image.png)
