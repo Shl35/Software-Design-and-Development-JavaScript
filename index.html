@@ -1,56 +1,98 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <title>ทดลอง JavaScript</title>
+    <title>การทดลองที่ 2.1 แสดงผลบนหน้าเว็บ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            padding: 30px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        button {
+            padding: 8px 15px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        p {
+            margin: 5px 0;
+        }
+    </style>
 </head>
-
 <body>
 
-    <h2>แบบฝึกปฏิบัติ JavaScript</h2>
-    <button onclick="alert('ชื่อ: ณภัทร รัศมี')">
-        ปุ่มที่ 1 (แสดงชื่อนักศึกษา)
-    </button>
+    <div class="card">
+        <h2>ข้อมูลตัวแปรนักศึกษา</h2>
+        <p id="basicInfo"></p>
+        <button onclick="showBasicInfo()">แสดงข้อมูล</button>
+    </div>
 
-    <br><br>
-    <button id="btn2">
-        ปุ่มที่ 2 (แสดงวันที่ปัจจุบัน)
-    </button>
+    <div class="card">
+        <h2>ข้อมูลแบบ Object</h2>
+        <p id="objectInfo"></p>
+        <button onclick="showObjectInfo()">แสดงข้อมูล Object</button>
+    </div>
 
-    <br><br>
-    <button onclick="showTime()">
-        ปุ่มที่ 3 (แสดงเวลาปัจจุบัน)
-    </button>
+<script>
+   
 
-    <hr>
+    const studentId = "68030079";
+    let studentName = "ณภัทร รัศมี";
+    let midtermScore = 35;
+    let finalScore = 40;
+    let totalScore = midtermScore + finalScore;
 
-    <h3>ทดลองรับค่าจาก Textbox</h3>
+    function showBasicInfo() {
+        document.getElementById("basicInfo").innerHTML =
+            "รหัสนักศึกษา: " + studentId + "<br>" +
+            "ชื่อ: " + studentName + "<br>" +
+            "คะแนนกลางภาค: " + midtermScore + "<br>" +
+            "คะแนนปลายภาค: " + finalScore + "<br>" +
+            "คะแนนรวม: " + totalScore + "<br>" +
+            "เกรด: " + calculateGrade(totalScore);
+    }
 
-    <input type="text" id="myText" placeholder="กรอกข้อความที่นี่">
+    function calculateGrade(score) {
+        if (score >= 80) return "A";
+        else if (score >= 70) return "B";
+        else if (score >= 60) return "C";
+        else if (score >= 50) return "D";
+        else return "F";
+    }
 
-    <button onclick="showText()">
-        แสดงข้อความ
-    </button>
 
-    <p id="result"></p>
+    const student = {
+        studentId: "68030079",
+        name: "ณภัทร รัศมี",
+        major: "เทคโนโลยีคอมพิวเตอร์",
+        gpa: 4.00
+    };
 
-    <script>
-        document.getElementById("btn2").onclick = function() {
-            let today = new Date();
-            alert("วันที่ปัจจุบันคือ: " + today.toLocaleDateString());
-        };
+    function showObjectInfo() {
+        document.getElementById("objectInfo").innerHTML =
+            "รหัส: " + student.studentId + "<br>" +
+            "ชื่อ: " + student.name + "<br>" +
+            "สาขาวิชา: " + student.major + "<br>" +
+            "เกรดเฉลี่ย: " + student.gpa;
+    }
 
-        function showTime() {
-            let now = new Date();
-            alert("เวลาปัจจุบันคือ: " + now.toLocaleTimeString());
-        }
-
-        function showText() {
-            let text = document.getElementById("myText").value;
-            document.getElementById("result").innerHTML = "ข้อความที่คุณพิมพ์คือ: " + text;
-        }
-    </script>
-    <script src="script.js"></script>
+</script>
 
 </body>
 </html>

@@ -193,10 +193,109 @@ let person = {
 ### บันทึกผลการทดลอง 2.1
 ```html
 [บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <title>การทดลองที่ 2.1 แสดงผลบนหน้าเว็บ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            padding: 30px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        button {
+            padding: 8px 15px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>ข้อมูลตัวแปรนักศึกษา</h2>
+        <p id="basicInfo"></p>
+        <button onclick="showBasicInfo()">แสดงข้อมูล</button>
+    </div>
+
+    <div class="card">
+        <h2>ข้อมูลแบบ Object</h2>
+        <p id="objectInfo"></p>
+        <button onclick="showObjectInfo()">แสดงข้อมูล Object</button>
+    </div>
+
+<script>
+   
+
+    const studentId = "68030079";
+    let studentName = "ณภัทร รัศมี";
+    let midtermScore = 35;
+    let finalScore = 40;
+    let totalScore = midtermScore + finalScore;
+
+    function showBasicInfo() {
+        document.getElementById("basicInfo").innerHTML =
+            "รหัสนักศึกษา: " + studentId + "<br>" +
+            "ชื่อ: " + studentName + "<br>" +
+            "คะแนนกลางภาค: " + midtermScore + "<br>" +
+            "คะแนนปลายภาค: " + finalScore + "<br>" +
+            "คะแนนรวม: " + totalScore + "<br>" +
+            "เกรด: " + calculateGrade(totalScore);
+    }
+
+    function calculateGrade(score) {
+        if (score >= 80) return "A";
+        else if (score >= 70) return "B";
+        else if (score >= 60) return "C";
+        else if (score >= 50) return "D";
+        else return "F";
+    }
+
+
+    const student = {
+        studentId: "68030079",
+        name: "ณภัทร รัศมี",
+        major: "เทคโนโลยีคอมพิวเตอร์",
+        gpa: 4.00
+    };
+
+    function showObjectInfo() {
+        document.getElementById("objectInfo").innerHTML =
+            "รหัส: " + student.studentId + "<br>" +
+            "ชื่อ: " + student.name + "<br>" +
+            "สาขาวิชา: " + student.major + "<br>" +
+            "เกรดเฉลี่ย: " + student.gpa;
+    }
+
+</script>
+
+</body>
+</html>
+
 ```
 **รูปผลการทดลอง**
-![รูปผลการทดลองที่ 2.1](images/image.png)
-
+![รูปผลการทดลองที่ 2.1](images/image3.png)
+![รูปผลการทดลองที่ 2.1](images/image2.png)
 
 ### 2.2 การดำเนินการทางคณิตศาสตร์
 
