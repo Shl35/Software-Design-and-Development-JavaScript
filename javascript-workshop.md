@@ -347,10 +347,108 @@ number /= 2;          // เท่ากับ number = number / 2
 ### บันทึกผลการทดลอง 2.2
 ```html
 [บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>แบบฝึกหัด 2.2 การคำนวณพื้นฐาน</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f4f8;
+            padding: 30px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+        button {
+            padding: 8px 15px;
+            border: none;
+            background-color: #646060;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        
+        .container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .card {
+            width: 450px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h2>คำนวณคะแนนเฉลี่ย 3 วิชา</h2>
+        <p id="averageResult"></p>
+        <button onclick="calculateAverage()">คำนวณคะแนนเฉลี่ย</button>
+    </div>
+
+    <div class="card">
+        <h2>คำนวณราคาสินค้ารวม VAT 7%</h2>
+        <p id="vatResult"></p>
+        <button onclick="calculateVAT()">คำนวณราคา</button>
+    </div>
+</div>
+<script>
+
+
+    function calculateAverage() {
+        let score1 = 80;
+        let score2 = 75;
+        let score3 = 90;
+
+        let total = score1 + score2 + score3;
+        let average = total / 3;
+
+        document.getElementById("averageResult").innerHTML =
+            "คะแนนวิชา 1: " + score1 + "<br>" +
+            "คะแนนวิชา 2: " + score2 + "<br>" +
+            "คะแนนวิชา 3: " + score3 + "<br><br>" +
+            "คะแนนรวม: " + total + "<br>" +
+            "คะแนนเฉลี่ย: " + average.toFixed(2);
+    }
+
+    function calculateVAT() {
+        let productName = "เมาส์ไร้สาย";
+        let price = 500;
+        let vatRate = 0.07;
+
+        let vatAmount = price * vatRate;
+        let totalPrice = price + vatAmount;
+
+        document.getElementById("vatResult").innerHTML =
+            "สินค้า: " + productName + "<br>" +
+            "ราคา: " + price + " บาท<br>" +
+            "VAT 7%: " + vatAmount.toFixed(2) + " บาท<br><br>" +
+            "ราคารวมสุทธิ: " + totalPrice.toFixed(2) + " บาท";
+    }
+
+</script>
+
+</body>
+</html>
 ```
 **รูปผลการทดลอง**
-![รูปผลการทดลองที่ 2.2](images/image.png)
-
+![รูปผลการทดลองที่ 2.2](images/image4.png)
 ### 2.3 การควบคุมการทำงาน
 
 JavaScript มีโครงสร้างควบคุมการทำงานหลักๆ ดังนี้:

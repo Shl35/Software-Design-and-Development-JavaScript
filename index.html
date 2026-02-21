@@ -1,95 +1,96 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <title>การทดลองที่ 2.1 แสดงผลบนหน้าเว็บ</title>
+    <meta charset="UTF-8">
+    <title>แบบฝึกหัด 2.2 การคำนวณพื้นฐาน</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
+            background-color: #f2f4f8;
             padding: 30px;
         }
         .card {
             background: white;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            max-width: 500px;
             margin-bottom: 20px;
-        }
-        h2 {
-            color: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 500px;
         }
         button {
             padding: 8px 15px;
             border: none;
-            background: #007bff;
+            background-color: #646060;
             color: white;
             border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
-            background: #0056b3;
+            background-color: #555;
         }
-        p {
-            margin: 5px 0;
+        h2 {
+            margin-top: 0;
         }
+        
+        .container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .card {
+            width: 450px;
+        }
+
     </style>
 </head>
 <body>
-
+<div class="container">
     <div class="card">
-        <h2>ข้อมูลตัวแปรนักศึกษา</h2>
-        <p id="basicInfo"></p>
-        <button onclick="showBasicInfo()">แสดงข้อมูล</button>
+        <h2>คำนวณคะแนนเฉลี่ย 3 วิชา</h2>
+        <p id="averageResult"></p>
+        <button onclick="calculateAverage()">คำนวณคะแนนเฉลี่ย</button>
     </div>
 
     <div class="card">
-        <h2>ข้อมูลแบบ Object</h2>
-        <p id="objectInfo"></p>
-        <button onclick="showObjectInfo()">แสดงข้อมูล Object</button>
+        <h2>คำนวณราคาสินค้ารวม VAT 7%</h2>
+        <p id="vatResult"></p>
+        <button onclick="calculateVAT()">คำนวณราคา</button>
     </div>
-
+</div>
 <script>
-   
 
-    const studentId = "68030079";
-    let studentName = "ณภัทร รัศมี";
-    let midtermScore = 35;
-    let finalScore = 40;
-    let totalScore = midtermScore + finalScore;
 
-    function showBasicInfo() {
-        document.getElementById("basicInfo").innerHTML =
-            "รหัสนักศึกษา: " + studentId + "<br>" +
-            "ชื่อ: " + studentName + "<br>" +
-            "คะแนนกลางภาค: " + midtermScore + "<br>" +
-            "คะแนนปลายภาค: " + finalScore + "<br>" +
-            "คะแนนรวม: " + totalScore + "<br>" +
-            "เกรด: " + calculateGrade(totalScore);
+    function calculateAverage() {
+        let score1 = 80;
+        let score2 = 75;
+        let score3 = 90;
+
+        let total = score1 + score2 + score3;
+        let average = total / 3;
+
+        document.getElementById("averageResult").innerHTML =
+            "คะแนนวิชา 1: " + score1 + "<br>" +
+            "คะแนนวิชา 2: " + score2 + "<br>" +
+            "คะแนนวิชา 3: " + score3 + "<br><br>" +
+            "คะแนนรวม: " + total + "<br>" +
+            "คะแนนเฉลี่ย: " + average.toFixed(2);
     }
 
-    function calculateGrade(score) {
-        if (score >= 80) return "A";
-        else if (score >= 70) return "B";
-        else if (score >= 60) return "C";
-        else if (score >= 50) return "D";
-        else return "F";
-    }
+    function calculateVAT() {
+        let productName = "เมาส์ไร้สาย";
+        let price = 500;
+        let vatRate = 0.07;
 
+        let vatAmount = price * vatRate;
+        let totalPrice = price + vatAmount;
 
-    const student = {
-        studentId: "68030079",
-        name: "ณภัทร รัศมี",
-        major: "เทคโนโลยีคอมพิวเตอร์",
-        gpa: 4.00
-    };
-
-    function showObjectInfo() {
-        document.getElementById("objectInfo").innerHTML =
-            "รหัส: " + student.studentId + "<br>" +
-            "ชื่อ: " + student.name + "<br>" +
-            "สาขาวิชา: " + student.major + "<br>" +
-            "เกรดเฉลี่ย: " + student.gpa;
+        document.getElementById("vatResult").innerHTML =
+            "สินค้า: " + productName + "<br>" +
+            "ราคา: " + price + " บาท<br>" +
+            "VAT 7%: " + vatAmount.toFixed(2) + " บาท<br><br>" +
+            "ราคารวมสุทธิ: " + totalPrice.toFixed(2) + " บาท";
     }
 
 </script>
