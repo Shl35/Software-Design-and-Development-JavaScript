@@ -1,97 +1,117 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <title>แบบฝึกหัด 2.2 การคำนวณพื้นฐาน</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f4f8;
+            font-family: Arial;
+            background: #f4f6f9;
             padding: 30px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
         }
         .card {
             background: white;
             padding: 20px;
-            margin-bottom: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 400px;
         }
-        button {
-            padding: 8px 15px;
-            border: none;
-            background-color: #646060;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #555;
-        }
-        h2 {
-            margin-top: 0;
-        }
-        
-        .container {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        .card {
-            width: 450px;
-        }
-
     </style>
 </head>
 <body>
+
+
 <div class="container">
+
     <div class="card">
-        <h2>คำนวณคะแนนเฉลี่ย 3 วิชา</h2>
-        <p id="averageResult"></p>
-        <button onclick="calculateAverage()">คำนวณคะแนนเฉลี่ย</button>
+        <h3>ตรวจสอบเลขคู่ / เลขคี่</h3>
+        <p id="evenOddResult"></p>
     </div>
 
     <div class="card">
-        <h2>คำนวณราคาสินค้ารวม VAT 7%</h2>
-        <p id="vatResult"></p>
-        <button onclick="calculateVAT()">คำนวณราคา</button>
+        <h3>ตารางสูตรคูณ</h3>
+        <p id="multiplicationResult"></p>
     </div>
+
+    <div class="card">
+        <h3>นับถอยหลัง 10 ถึง 1</h3>
+        <p id="countdownResult"></p>
+    </div>
+
+    <div class="card">
+        <h3>ตรวจสอบช่วงวัย</h3>
+        <p id="ageResult"></p>
+    </div>
+
 </div>
+
 <script>
 
+window.onload = function() {
+    checkEvenOdd();
+    showMultiplication();
+    countdown();
+    checkAge();
+};
 
-    function calculateAverage() {
-        let score1 = 80;
-        let score2 = 75;
-        let score3 = 90;
+function checkEvenOdd() {
+    let number = 7;
+    let result = (number % 2 === 0) ? "เลขคู่" : "เลขคี่";
 
-        let total = score1 + score2 + score3;
-        let average = total / 3;
+    document.getElementById("evenOddResult").innerHTML =
+        "ตัวเลข: " + number + "<br>ผลลัพธ์: " + result;
+}
 
-        document.getElementById("averageResult").innerHTML =
-            "คะแนนวิชา 1: " + score1 + "<br>" +
-            "คะแนนวิชา 2: " + score2 + "<br>" +
-            "คะแนนวิชา 3: " + score3 + "<br><br>" +
-            "คะแนนรวม: " + total + "<br>" +
-            "คะแนนเฉลี่ย: " + average.toFixed(2);
+
+function showMultiplication() {
+    let output = "";
+
+    output += "<b>แม่ 2</b><br>";
+    for (let i = 1; i <= 12; i++) {
+        output += "2 x " + i + " = " + (2 * i) + "<br>";
     }
 
-    function calculateVAT() {
-        let productName = "เมาส์ไร้สาย";
-        let price = 500;
-        let vatRate = 0.07;
+    output += "<br><b>แม่ 3</b><br>";
 
-        let vatAmount = price * vatRate;
-        let totalPrice = price + vatAmount;
-
-        document.getElementById("vatResult").innerHTML =
-            "สินค้า: " + productName + "<br>" +
-            "ราคา: " + price + " บาท<br>" +
-            "VAT 7%: " + vatAmount.toFixed(2) + " บาท<br><br>" +
-            "ราคารวมสุทธิ: " + totalPrice.toFixed(2) + " บาท";
+    let j = 1;
+    while (j <= 12) {
+        output += "3 x " + j + " = " + (3 * j) + "<br>";
+        j++;
     }
+
+    document.getElementById("multiplicationResult").innerHTML = output;
+}
+
+
+function countdown() {
+    let output = "";
+    for (let i = 10; i >= 1; i--) {
+        output += i + " ";
+    }
+
+    document.getElementById("countdownResult").innerHTML = output;
+}
+
+
+function checkAge() {
+    let age = 18;
+
+    let message;
+
+    if (age <= 12) {
+        message = "วัยเด็ก";
+    } else if (age <= 19) {
+        message = "วัยรุ่น";
+    } else {
+        message = "วัยผู้ใหญ่";
+    }
+
+    document.getElementById("ageResult").innerHTML =
+        "อายุ: " + age + "<br>ช่วงวัย: " + message;
+}
 
 </script>
 

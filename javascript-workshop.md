@@ -579,9 +579,128 @@ for (let i = 1; i <= 5; i++) {
 ### บันทึกผลการทดลอง 2.3
 ```html
 [บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            padding: 30px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="container">
+
+    <div class="card">
+        <h3>ตรวจสอบเลขคู่ / เลขคี่</h3>
+        <p id="evenOddResult"></p>
+    </div>
+
+    <div class="card">
+        <h3>ตารางสูตรคูณ</h3>
+        <p id="multiplicationResult"></p>
+    </div>
+
+    <div class="card">
+        <h3>นับถอยหลัง 10 ถึง 1</h3>
+        <p id="countdownResult"></p>
+    </div>
+
+    <div class="card">
+        <h3>ตรวจสอบช่วงวัย</h3>
+        <p id="ageResult"></p>
+    </div>
+
+</div>
+
+<script>
+
+window.onload = function() {
+    checkEvenOdd();
+    showMultiplication();
+    countdown();
+    checkAge();
+};
+
+function checkEvenOdd() {
+    let number = 7;
+    let result = (number % 2 === 0) ? "เลขคู่" : "เลขคี่";
+
+    document.getElementById("evenOddResult").innerHTML =
+        "ตัวเลข: " + number + "<br>ผลลัพธ์: " + result;
+}
+
+
+function showMultiplication() {
+    let output = "";
+
+    output += "<b>แม่ 2</b><br>";
+    for (let i = 1; i <= 12; i++) {
+        output += "2 x " + i + " = " + (2 * i) + "<br>";
+    }
+
+    output += "<br><b>แม่ 3</b><br>";
+
+    let j = 1;
+    while (j <= 12) {
+        output += "3 x " + j + " = " + (3 * j) + "<br>";
+        j++;
+    }
+
+    document.getElementById("multiplicationResult").innerHTML = output;
+}
+
+
+function countdown() {
+    let output = "";
+    for (let i = 10; i >= 1; i--) {
+        output += i + " ";
+    }
+
+    document.getElementById("countdownResult").innerHTML = output;
+}
+
+
+function checkAge() {
+    let age = 18;
+
+    let message;
+
+    if (age <= 12) {
+        message = "วัยเด็ก";
+    } else if (age <= 19) {
+        message = "วัยรุ่น";
+    } else {
+        message = "วัยผู้ใหญ่";
+    }
+
+    document.getElementById("ageResult").innerHTML =
+        "อายุ: " + age + "<br>ช่วงวัย: " + message;
+}
+
+</script>
+
+</body>
+</html>
 ```
 **รูปผลการทดลอง**
-![รูปผลการทดลองที่ 2.3](images/image.png)
+![รูปผลการทดลองที่ 2.3](images/image5.png)
 
 ### 2.4 Functions และ Arrow Functions
 
