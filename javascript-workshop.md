@@ -813,11 +813,118 @@ process(function() {
 ### บันทึกผลการทดลอง 2.4.1
 ```html
 [บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<style>
+    body{font-family:Arial, sans-serif;max-width:720px;margin:20px auto;padding:16px}
+    .row{margin-bottom:12px}
+    label{display:block;margin-bottom:6px;font-weight:600}
+    input[type="text"], input[type="number"], input[type="password"]{width:100%;padding:8px;border:1px solid #ccc;border-radius:4px}
+    button{padding:8px 12px;border:none;background:#007bff;color:#fff;border-radius:4px;cursor:pointer}
+    p.result{background:#f8f9fb;padding:10px;border-radius:6px}
+</style>
+</head>
+<body>
+<section>
+    <h3>1 คำนวณค่า BMI</h3>
+    <div class="row">
+        <label for="weight">น้ำหนัก (กก.)</label>
+        <input id="weight" type="number" step="0.1" value="">
+    </div>
+    <div class="row">
+        <label for="height">ส่วนสูง (ซม.)</label>
+        <input id="height" type="number" step="0.1" value="">
+    </div>
+    <button onclick="handleBMI()">คำนวณ BMI</button>
+    <p id="bmiResult" class="result"></p>
+</section>
+
+<hr>
+
+<section>
+    <h2>2 ทักทายตามชื่อและอายุ</h2>
+    <div class="row">
+        <label for="name">ชื่อ</label>
+        <input id="name" type="text" value="">
+    </div>
+    <div class="row">
+        <label for="age">อายุ</label>
+        <input id="age" type="number" value="">
+    </div>
+    <button onclick="handleGreet()">แสดงข้อความทักทาย</button>
+    <p id="greetResult" class="result"></p>
+</section>
+
+<hr>
+
+<section>
+    <h2>3 ตรวจสอบความยาวรหัสผ่าน (มากกว่า 8 ตัวอักษร)</h2>
+    <div class="row">
+        <label for="password">รหัสผ่าน</label>
+        <input id="password" type="password" value="">
+    </div>
+    <button onclick="handlePasswordCheck()">ตรวจสอบรหัสผ่าน</button>
+    <p id="pwdResult" class="result"></p>
+</section>
+
+<script>
+
+function calculateBMI(weightKg, heightCm) {
+    if (!weightKg || !heightCm) return null;
+    var heightM = heightCm / 100;
+    var bmi = weightKg / (heightM * heightM);
+    return parseFloat(bmi.toFixed(2));
+}
+
+function bmiCategory(bmi) {
+    if (bmi === null) return "ข้อมูลไม่ครบ";
+    if (bmi < 18.5) return "ผอม (Underweight)";
+    if (bmi < 25) return "สมส่วน (Normal)";
+    if (bmi < 30) return "น้ำหนักเกิน (Overweight)";
+    return "อ้วน (Obese)";
+}
+
+function handleBMI() {
+    var w = parseFloat(document.getElementById('weight').value);
+    var h = parseFloat(document.getElementById('height').value);
+    var bmi = calculateBMI(w, h);
+    var msg = (bmi === null) ? "กรุณากรอกค่าน้ำหนักและส่วนสูง" : "ค่า BMI: " + bmi + " — " + bmiCategory(bmi);
+    document.getElementById('bmiResult').textContent = msg;
+}
+
+function greetByAge(name, age) {
+    if (!name) name = "คุณ";
+    var ageNum = Number(age);
+    if (isNaN(ageNum)) return "อายุไม่ถูกต้อง";
+    if (ageNum <= 12) return "สวัสดีเด็กน้อย " + name;
+    if (ageNum <= 19) return "สวัสดีวัยรุ่น " + name;
+    return "สวัสดีผู้ใหญ่ " + name;
+}
+
+function handleGreet() {
+    var n = document.getElementById('name').value.trim();
+    var a = document.getElementById('age').value;
+    document.getElementById('greetResult').textContent = greetByAge(n, a);
+}
+
+function isPasswordLongEnough(pwd) {
+    if (typeof pwd !== 'string') return false;
+    return pwd.length > 8;
+}
+
+function handlePasswordCheck() {
+    var p = document.getElementById('password').value || '';
+    var ok = isPasswordLongEnough(p);
+    document.getElementById('pwdResult').textContent = ok ? "รหัสผ่านผ่านเงื่อนไข (มากกว่า 8 ตัวอักษร)" : "รหัสผ่านต้องมีมากกว่า 8 ตัวอักษร";
+}
+</script>
+
+</body>
+</html>
 ```
 **รูปผลการทดลอง**
-![รูปผลการทดลองที่ 2.4.1](images/image.png)
-
-
+![รูปผลการทดลองที่ 2.4.1](images/image6.png)
 
 #### 2.4.2 Arrow Function
 Arrow Function เป็นวิธีการเขียน function แบบสั้นๆ ที่มาพร้อมกับ JavaScript เวอร์ชัน ES6
