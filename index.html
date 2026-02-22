@@ -1,58 +1,128 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<style>
-    body{font-family:Arial, sans-serif;max-width:720px;margin:20px auto;padding:16px}
-    .row{margin-bottom:12px}
-    label{display:block;margin-bottom:6px;font-weight:600}
-    input[type="text"], input[type="number"], input[type="password"]{width:100%;padding:8px;border:1px solid #ccc;border-radius:4px}
-    button{padding:8px 12px;border:none;background:#007bff;color:#fff;border-radius:4px;cursor:pointer}
-    p.result{background:#f8f9fb;padding:10px;border-radius:6px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจองห้องพักออนไลน์</title>
 </head>
 <body>
-<section>
-    <h2>การทดลอง 3.1 — คำนวณ BMI และแสดงผล (อ้วน/ผอม/สมส่วน)</h2>
-    <div class="row">
-        <label for="weight3">น้ำหนัก (กก.)</label>
-        <input id="weight3" type="number" step="0.1" value="">
-    </div>
-    <div class="row">
-        <label for="height3">ส่วนสูง (ซม.)</label>
-        <input id="height3" type="number" step="0.1" value="">
-    </div>
-    <button onclick="handleBMI3()">คำนวณ BMI</button>
-    <p id="bmiResult3" class="result"></p>
-</section>
+    <h1>แบบฟอร์มจองห้องพัก</h1>
+    
+    <form id="bookingForm">
+        <div>
+            <label for="fullname">ชื่อ-นามสกุล:</label>
+            <input type="text" id="fullname" name="fullname" required>
+        </div>
 
-<script>
+        <div>
+            <label for="email">อีเมล:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
 
-    function calculateBMI(weightKg, heightCm) {
-        const w = parseFloat(weightKg);
-        const h = parseFloat(heightCm);
-        if (isNaN(w) || isNaN(h) || w <= 0 || h <= 0) return null;
-        const heightM = h / 100;
-        const bmi = w / (heightM * heightM);
-        return parseFloat(bmi.toFixed(2));
-    }
+        <div>
+            <label for="phone">เบอร์โทรศัพท์:</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
 
-    function bmiCategory(bmi) {
-        if (bmi === null || isNaN(bmi)) return "ข้อมูลไม่ครบหรือไม่ถูกต้อง";
-        if (bmi < 18.5) return "ผอม (Underweight)";
-        if (bmi < 25) return "สมส่วน (Normal)";
-        if (bmi < 30) return "น้ำหนักเกิน (Overweight)";
-        return "อ้วน (Obese)";
-    }
+        <div>
+            <label for="checkin">วันที่เช็คอิน:</label>
+            <input type="date" id="checkin" name="checkin" required>
+        </div>
 
-    function handleBMI3() {
-        const w = document.getElementById('weight3').value;
-        const h = document.getElementById('height3').value;
-        const bmi = calculateBMI(w, h);
-        const output = (bmi === null)
-            ? "กรุณากรอกค่าน้ำหนักและส่วนสูงให้ถูกต้อง"
-            : `ค่า BMI: ${bmi} — ${bmiCategory(bmi)}`;
-        document.getElementById('bmiResult3').textContent = output;
-    }
-</script>
+        <div>
+            <label for="checkout">วันที่เช็คเอาท์:</label>
+            <input type="date" id="checkout" name="checkout" required>
+        </div>
+
+        <div>
+            <label for="roomtype">ประเภทห้องพัก:</label>
+            <select id="roomtype" name="roomtype" required>
+                <option value="">กรุณาเลือกประเภทห้องพัก</option>
+                <option value="standard">ห้องมาตรฐาน</option>
+                <option value="deluxe">ห้องดีลักซ์</option>
+                <option value="suite">ห้องสวีท</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="guests">จำนวนผู้เข้าพัก:</label>
+            <input type="number" id="guests" name="guests" min="1" max="4" required>
+        </div>
+
+        <button type="submit">จองห้องพัก</button>
+    </form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจองห้องพักออนไลน์</title>
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52,152,219,0.3);
+        }
+
+        button {
+            background-color: #2980b9;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #3498db;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
 </body>
 </html>
