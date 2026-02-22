@@ -964,10 +964,109 @@ console.log("เลขคู่:", evenNumbers); // [2, 4]
 ### บันทึกผลการทดลอง 2.4.2
 ```html
 [บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<style>
+    body{font-family:Arial, sans-serif;max-width:720px;margin:20px auto;padding:16px}
+    .row{margin-bottom:12px}
+    label{display:block;margin-bottom:6px;font-weight:600}
+    input[type="text"], input[type="number"], input[type="password"]{width:100%;padding:8px;border:1px solid #ccc;border-radius:4px}
+    button{padding:8px 12px;border:none;background:#007bff;color:#fff;border-radius:4px;cursor:pointer}
+    p.result{background:#f8f9fb;padding:10px;border-radius:6px}
+</style>
+</head>
+<body>
+<section>
+        <h3>1 คำนวณค่า BMI (Arrow)</h3>
+        <div class="row">
+            <label for="weight2">น้ำหนัก (กก.)</label>
+            <input id="weight2" type="number" step="0.1" value="">
+        </div>
+        <div class="row">
+            <label for="height2">ส่วนสูง (ซม.)</label>
+            <input id="height2" type="number" step="0.1" value="">
+        </div>
+        <button onclick="handleBMIArrow()">คำนวณ BMI (Arrow)</button>
+        <p id="bmiResult2" class="result"></p>
+
+        <hr>
+
+        <h3>2 ทักทายตามชื่อและอายุ (Arrow)</h3>
+        <div class="row">
+            <label for="name2">ชื่อ</label>
+            <input id="name2" type="text" value="">
+        </div>
+        <div class="row">
+            <label for="age2">อายุ</label>
+            <input id="age2" type="number" value="">
+        </div>
+        <button onclick="handleGreetArrow()">แสดงข้อความทักทาย (Arrow)</button>
+        <p id="greetResult2" class="result"></p>
+
+        <hr>
+        <h3>3 ตรวจสอบความยาวรหัสผ่าน (Arrow)</h3>
+        <div class="row">
+            <label for="password2">รหัสผ่าน</label>
+            <input id="password2" type="password" value="">
+        </div>
+        <button onclick="handlePasswordCheckArrow()">ตรวจสอบรหัสผ่าน (Arrow)</button>
+        <p id="pwdResult2" class="result"></p>
+    </section>
+
+    <script>
+
+    const calculateBMIArrow = (weightKg, heightCm) => {
+        if (!weightKg || !heightCm) return null;
+        const heightM = heightCm / 100;
+        const bmi = weightKg / (heightM * heightM);
+        return parseFloat(bmi.toFixed(2));
+    };
+
+    const bmiCategoryArrow = (bmi) => {
+        if (bmi === null) return "ข้อมูลไม่ครบ";
+        if (bmi < 18.5) return "ผอม (Underweight)";
+        if (bmi < 25) return "สมส่วน (Normal)";
+        if (bmi < 30) return "น้ำหนักเกิน (Overweight)";
+        return "อ้วน (Obese)";
+    };
+
+    const handleBMIArrow = () => {
+        const w = parseFloat(document.getElementById('weight2').value);
+        const h = parseFloat(document.getElementById('height2').value);
+        const bmi = calculateBMIArrow(w, h);
+        const msg = (bmi === null) ? "กรุณากรอกค่าน้ำหนักและส่วนสูง" : `ค่า BMI: ${bmi} — ${bmiCategoryArrow(bmi)}`;
+        document.getElementById('bmiResult2').textContent = msg;
+    };
+
+    const greetByAgeArrow = (name = "คุณ", age) => {
+        const ageNum = Number(age);
+        if (isNaN(ageNum)) return "อายุไม่ถูกต้อง";
+        if (ageNum <= 12) return `สวัสดีเด็กน้อย ${name}`;
+        if (ageNum <= 19) return `สวัสดีวัยรุ่น ${name}`;
+        return `สวัสดีผู้ใหญ่ ${name}`;
+    };
+
+    const handleGreetArrow = () => {
+        const n = document.getElementById('name2').value.trim() || "คุณ";
+        const a = document.getElementById('age2').value;
+        document.getElementById('greetResult2').textContent = greetByAgeArrow(n, a);
+    };
+
+    const isPasswordLongEnoughArrow = (pwd) => typeof pwd === 'string' && pwd.length > 8;
+
+    const handlePasswordCheckArrow = () => {
+        const p = document.getElementById('password2').value || '';
+        const ok = isPasswordLongEnoughArrow(p);
+        document.getElementById('pwdResult2').textContent = ok ? "รหัสผ่านผ่านเงื่อนไข (มากกว่า 8 ตัวอักษร)" : "รหัสผ่านต้องมีมากกว่า 8 ตัวอักษร";
+    };
+    </script>
+</body>
+</html>
 ```
 **รูปผลการทดลอง**
-![รูปผลการทดลองที่ 2.4.2](images/image.png)
-
+![รูปผลการทดลองที่ 2.4.2](images/image7.png)
+![รูปผลการทดลองที่ 2.4.2](images/image8.png)
 
 ## การทดลองที่ 3 : การใช้ JavaScript กับ HTML และ CSS
 ### การทดลองที่ 3.1 การสร้างปุ่มและจัดการ Event ด้วย JavaScript
@@ -1035,9 +1134,67 @@ console.log("เลขคู่:", evenNumbers); // [2, 4]
 ### บันทึกผลการทดลอง 3.1
 ```html
 [บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<style>
+    body{font-family:Arial, sans-serif;max-width:720px;margin:20px auto;padding:16px}
+    .row{margin-bottom:12px}
+    label{display:block;margin-bottom:6px;font-weight:600}
+    input[type="text"], input[type="number"], input[type="password"]{width:100%;padding:8px;border:1px solid #ccc;border-radius:4px}
+    button{padding:8px 12px;border:none;background:#007bff;color:#fff;border-radius:4px;cursor:pointer}
+    p.result{background:#f8f9fb;padding:10px;border-radius:6px}
+</style>
+</head>
+<body>
+<section>
+    <h2>การทดลอง 3.1 — คำนวณ BMI และแสดงผล (อ้วน/ผอม/สมส่วน)</h2>
+    <div class="row">
+        <label for="weight3">น้ำหนัก (กก.)</label>
+        <input id="weight3" type="number" step="0.1" value="">
+    </div>
+    <div class="row">
+        <label for="height3">ส่วนสูง (ซม.)</label>
+        <input id="height3" type="number" step="0.1" value="">
+    </div>
+    <button onclick="handleBMI3()">คำนวณ BMI</button>
+    <p id="bmiResult3" class="result"></p>
+</section>
+
+<script>
+
+    function calculateBMI(weightKg, heightCm) {
+        const w = parseFloat(weightKg);
+        const h = parseFloat(heightCm);
+        if (isNaN(w) || isNaN(h) || w <= 0 || h <= 0) return null;
+        const heightM = h / 100;
+        const bmi = w / (heightM * heightM);
+        return parseFloat(bmi.toFixed(2));
+    }
+
+    function bmiCategory(bmi) {
+        if (bmi === null || isNaN(bmi)) return "ข้อมูลไม่ครบหรือไม่ถูกต้อง";
+        if (bmi < 18.5) return "ผอม (Underweight)";
+        if (bmi < 25) return "สมส่วน (Normal)";
+        if (bmi < 30) return "น้ำหนักเกิน (Overweight)";
+        return "อ้วน (Obese)";
+    }
+
+    function handleBMI3() {
+        const w = document.getElementById('weight3').value;
+        const h = document.getElementById('height3').value;
+        const bmi = calculateBMI(w, h);
+        const output = (bmi === null)
+            ? "กรุณากรอกค่าน้ำหนักและส่วนสูงให้ถูกต้อง"
+            : `ค่า BMI: ${bmi} — ${bmiCategory(bmi)}`;
+        document.getElementById('bmiResult3').textContent = output;
+    }
+</script>
+</body>
+</html>
 ```
 **รูปผลการทดลอง**
-![รูปผลการทดลองที่ 3.1](images/image.png)
+![รูปผลการทดลองที่ 3.1](images/image9.png)
 
 ## การทดลองที่ 3.2 : การสร้างฟอร์มสำหรับจองห้องพัก
 การสร้างฟอร์มลงทะเบียนเพื่อรวบรวมข้อมูลที่จำเป็นสำหรับการจองห้องพัก
