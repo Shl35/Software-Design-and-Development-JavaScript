@@ -1628,14 +1628,145 @@ console.log("เลขคู่:", evenNumbers); // [2, 4]
 ทดสอบปรับแต่ง JavaScript ในแต่ละส่วน แล้วอธิบายโค้ดในแต่ละส่วน เขียนสรุปผลการทดลองว่าได้ทดลองเปลี่ยนส่วนใด แล้วผลเป็นอย่างไร พร้อมแนบรูปประกอบการทดลอง
 
 ### บันทึกผลการทดลอง 3.2.3
-```html
+ ```
 [บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจองห้องพักออนไลน์</title>
+</head>
+
+<body>
+
+    <h2>ระบบจองห้องพักออนไลน์</h2>
+
+    <form id="bookingForm">
+        ชื่อ-นามสกุล:
+        <input type="text" id="fullname" required><br><br>
+
+        เบอร์โทร:
+        <input type="text" id="phone" required><br><br>
+
+        วันที่เช็คอิน:
+        <input type="date" id="checkin" required><br><br>
+
+        วันที่เช็คเอาท์:
+        <input type="date" id="checkout" required><br><br>
+
+        ประเภทห้อง:
+        <select id="roomtype">
+            <option value="standard">Standard</option>
+            <option value="deluxe">Deluxe</option>
+            <option value="suite">Suite</option>
+        </select><br><br>
+
+        จำนวนผู้เข้าพัก:
+        <input type="number" id="guests" min="1" max="2" required><br><br>
+
+        <button type="submit">จองห้องพัก</button>
+    </form>
+
+    <script>
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const checkin = new Date(document.getElementById('checkin').value);
+            const checkout = new Date(document.getElementById('checkout').value);
+            const today = new Date();
+
+            today.setHours(0,0,0,0);
+
+            if (checkin < today) {
+                alert('กรุณาเลือกวันเช็คอินที่ยังไม่ผ่านมา');
+                return;
+            }
+
+            if (checkout <= checkin) {
+                alert('วันเช็คเอาท์ต้องมาหลังวันเช็คอิน');
+                return;
+            }
+
+            const phone = document.getElementById('phone').value;
+            const phoneRegex = /^[0-9]{10}$/;
+
+            if (!phoneRegex.test(phone)) {
+                alert('กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (10 หลัก)');
+                return;
+            }
+
+            const days = Math.ceil((checkout - checkin) / (1000 * 60 * 60 * 24));
+
+            const roomtype = document.getElementById('roomtype');
+            const roomtypeText = roomtype.options[roomtype.selectedIndex].text;
+
+            const summary = `
+สรุปการจอง:
+ชื่อผู้จอง: ${document.getElementById('fullname').value}
+ประเภทห้อง: ${roomtypeText}
+วันที่เข้าพัก: ${checkin.toLocaleDateString('th-TH')}
+วันที่ออก: ${checkout.toLocaleDateString('th-TH')}
+จำนวนวันที่พัก: ${days} วัน
+จำนวนผู้เข้าพัก: ${document.getElementById('guests').value} ท่าน
+            `;
+
+            if (confirm(summary + '\n\nยืนยันการจองห้องพัก?')) {
+                alert('จองห้องพักเรียบร้อยแล้ว');
+                this.reset();
+            }
+        });
+
+        document.getElementById('checkin').addEventListener('change', function() {
+            document.getElementById('checkout').min = this.value;
+        });
+
+        document.getElementById('roomtype').addEventListener('change', function() {
+            const guestsInput = document.getElementById('guests');
+
+            if (this.value === 'standard') {
+                guestsInput.max = 2;
+            } else if (this.value === 'deluxe') {
+                guestsInput.max = 3;
+            } else if (this.value === 'suite') {
+                guestsInput.max = 4;
+            }
+
+            if (guestsInput.value > guestsInput.max) {
+                guestsInput.value = guestsInput.max;
+            }
+        });
+    </script>
+
+</body>
+</html>
 ```
+## สรุป 
+### 1. เพิ่มการตรวจสอบวันที่
+
+ผลที่ได้:ไม่สามารถเลือกวันย้อนหลัง
+ลดข้อผิดพลาดในการจอง
+
+### 2. เพิ่มการตรวจสอบเบอร์โทรศัพท์
+
+ผลที่ได้:ต้องกรอกตัวเลข 10 หลักเท่านั้น
+ป้องกันข้อมูลผิดรูปแบบ
+
+### 3. เพิ่มสรุปการจองก่อนยืนยัน
+
+ผลที่ได้:ผู้ใช้สามารถตรวจสอบข้อมูลก่อนกดยืนยัน
+ลดความผิดพลาดในการจอง
+
+### 4. เพิ่มการตรวจสอบแบบ Real-time
+
+ผลที่ได้:วันเช็คเอาท์ถูกจำกัดอัตโนมัติ
+
+จำนวนผู้เข้าพักถูกจำกัดตามประเภทห้อง
 **รูปผลการทดลอง**
 ![รูปผลการทดลองที่ 3.2.3](images/image.png)
 
 
-## คำแนะนำเพิ่มเติม
+### คำแนะนำเพิ่มเติม
 - ทดลองเขียนโค้ดทุกตัวอย่างด้วยตัวเอง
 - ลองปรับเปลี่ยนค่าต่างๆ เพื่อดูผลลัพธ์ที่เปลี่ยนไป
 - ใช้ Console ใน Developer Tools ของเบราว์เซอร์เพื่อดูผลลัพธ์และแก้ไขข้อผิดพลาด
